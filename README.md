@@ -11,12 +11,13 @@ Technologies involved:
 
 - server
   - go-chi/chi
-  
+
 - backend
   - go-chi/chi
   - dgrijalva/jwt-go
 
 - frontend
+  - npm
   - js
     - react
     - react-router

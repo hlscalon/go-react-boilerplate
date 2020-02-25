@@ -1,0 +1,23 @@
+{
+  "name": "go-react-boilerplate",
+  "version": "1.0.0",
+  "description": "simple application to demonstrate go and react integration",
+  "main": "public/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hlscalon/go-react-boilerplate.git"
+  },
+  "author": "hlscalon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hlscalon/go-react-boilerplate/issues"
+  },
+  "homepage": "https://github.com/hlscalon/go-react-boilerplate#readme",
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
