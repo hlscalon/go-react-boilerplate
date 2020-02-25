@@ -1,4 +1,4 @@
-# go-react-boilerplate-web
+# go-react-boilerplate
 
 This repository contains a boilerplate for a simple web application that contains the following actions:
 
@@ -9,9 +9,19 @@ This repository contains a boilerplate for a simple web application that contain
 
 Technologies involved:
 
-- go:
+- server
+  - go-chi/chi
+  
+- backend
   - go-chi/chi
   - dgrijalva/jwt-go
-- react:
-  - react-router
-- mysql
+
+- frontend
+  - js
+    - react
+    - react-router
+  - css
+    - bulma
+
+- database
+  - mysql
