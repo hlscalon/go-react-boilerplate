@@ -2,12 +2,12 @@
   "name": "go-react-boilerplate",
   "version": "1.0.0",
   "description": "simple application to demonstrate go and react integration",
-  "main": "public/index.js",
+  "main": "static/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css-deploy": "npm run css-build && npm run css-postcss",
-    "css-build": "node-sass public/styles/scss -o public/styles/css",
-    "css-postcss": "postcss --use autoprefixer --dir public/styles/css/ public/styles/css/",
+    "css-build": "node-sass static/styles/scss -o static/styles/css",
+    "css-postcss": "postcss --use autoprefixer --dir static/styles/css/ static/styles/css/",
     "css-watch": "npm run css-build -- --watch",
     "build": "npm run css-deploy && webpack --mode development",
     "build-prod": "npm run css-deploy && webpack --mode production"

@@ -3,6 +3,6 @@
 
 node_modules/
 public/dist/
-public/styles/css/
+static/styles/css/
 
 go-react-boilerplate
