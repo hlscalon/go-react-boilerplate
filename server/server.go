@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"strings"
+	"log"
 
 	"github.com/go-chi/chi"
 )
