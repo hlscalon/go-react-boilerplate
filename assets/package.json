@@ -9,6 +9,7 @@
     "css-build": "node-sass styles/scss -o styles/css",
     "css-postcss": "postcss --use autoprefixer --dir styles/css/ styles/css/",
     "css-watch": "npm run css-build -- --watch",
+    "watch": "webpack --watch",
     "build": "npm run css-deploy && webpack --mode development",
     "build-prod": "npm run css-deploy && webpack --mode production"
   },
