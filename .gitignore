@@ -1,8 +1,8 @@
 *.sublime-project
 *.sublime-workspace
 
-node_modules/
-public/dist/
-static/styles/css/
+assets/node_modules/
+assets/public/dist/
+assets/styles/css/
 
 go-react-boilerplate

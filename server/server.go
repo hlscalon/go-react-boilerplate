@@ -12,8 +12,8 @@ func New(port string) {
 	r := chi.NewRouter()
 
 	r.Route("/", func(root chi.Router) {
-		fileServer(root, "", "/public/", http.Dir("public/"))
-		fileServer(root, "", "/", http.Dir("public/views"))
+		fileServer(root, "", "/dist/", http.Dir("assets/public/dist/"))
+		fileServer(root, "", "/", http.Dir("assets/public/static/"))
 	})
 
 	log.Printf("Up and running on port %s...", port)

@@ -2,12 +2,12 @@
   "name": "go-react-boilerplate",
   "version": "1.0.0",
   "description": "simple application to demonstrate go and react integration",
-  "main": "static/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css-deploy": "npm run css-build && npm run css-postcss",
-    "css-build": "node-sass static/styles/scss -o static/styles/css",
-    "css-postcss": "postcss --use autoprefixer --dir static/styles/css/ static/styles/css/",
+    "css-build": "node-sass styles/scss -o styles/css",
+    "css-postcss": "postcss --use autoprefixer --dir styles/css/ styles/css/",
     "css-watch": "npm run css-build -- --watch",
     "build": "npm run css-deploy && webpack --mode development",
     "build-prod": "npm run css-deploy && webpack --mode production"
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/hlscalon/go-react-boilerplate#readme",
   "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

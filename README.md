@@ -7,6 +7,8 @@ This repository contains a boilerplate for a simple web application that contain
 - login
 - admin page for authenticated users to create/read/update/delete posts
 
+Code structure was based on [phoenix](http://www.phoenixframework.org/)
+
 Technologies involved:
 
 - server
@@ -17,10 +19,12 @@ Technologies involved:
   - dgrijalva/jwt-go
 
 - frontend
-  - npm
   - js
+    - npm
     - react
     - react-router
+    - webpack
+    - babel
   - css
     - bulma
 
