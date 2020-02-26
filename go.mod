@@ -1,4 +1,4 @@
-module github.com/go-react-boilerplate/server
+module github.com/hlscalon/go-react-boilerplate
 
 go 1.12
 

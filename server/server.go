@@ -1,23 +1,22 @@
-package main
+package server
 
 import (
 	"net/http"
 	"strings"
-	"log"
 
 	"github.com/go-chi/chi"
 )
 
-func main() {
+func New(port string) {
 	r := chi.NewRouter()
 
 	r.Route("/", func(root chi.Router) {
-		fileServer(root, "", "/public/", http.Dir("../public/"))
-		fileServer(root, "", "/", http.Dir("../public/views"))
+		fileServer(root, "", "/public/", http.Dir("public/"))
+		fileServer(root, "", "/", http.Dir("public/views"))
 	})
 
-	log.Printf("Up and running on port 8080...")
-	http.ListenAndServe(":8080", r)
+	log.Printf("Up and running on port %s...", port)
+	http.ListenAndServe(":" + port, r)
 }
 
 func fileServer(r chi.Router, basePath string, path string, root http.FileSystem) {
@@ -32,8 +31,6 @@ func fileServer(r chi.Router, basePath string, path string, root http.FileSystem
 		path += "/"
 	}
 	path += "*"
-
-	log.Printf("path: %s\n", path)
 
 	r.Get(path, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fs.ServeHTTP(w, r)
