@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { PostTable } from "./PostTable";
 
-import "../../styles/css/index.css";
-
 class Posts extends Component {
 
     constructor(props) {
@@ -44,15 +42,7 @@ class Posts extends Component {
             table = <PostTable posts={ this.state.posts } />;
         }
 
-        return (
-            <div>
-                <section className="section">
-                    <div className="container">
-                        { table }
-                    </div>
-                </section>
-            </div>
-        );
+        return table;
     }
 
 }

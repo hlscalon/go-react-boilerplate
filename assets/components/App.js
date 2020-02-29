@@ -6,44 +6,55 @@ import Signup from "./Signup";
 import Posts from "./posts/Posts";
 import RouteNotFound from "./RouteNotFound";
 
+import "../styles/css/index.css";
+
 class App extends Component {
 
     render() {
         return (
             <Router>
-                <nav>
-                  <ul>
-                    <li>
-                      <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                      <Link to="/posts">Posts</Link>
-                    </li>
-                    <li>
-                      <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                      <Link to="/signup">Sign up</Link>
-                    </li>
-                  </ul>
-                </nav>
-                <Switch>
-                  <Route path="/login">
-                    <Login />
-                  </Route>
-                  <Route path="/signup">
-                    <Signup />
-                  </Route>
-                  <Route path="/posts">
-                    <Posts />
-                  </Route>
-                  <Route path="/" exact={true}>
-                    <Home />
-                  </Route>
-                  <Route path="*">
-                    <RouteNotFound />
-                  </Route>
-                </Switch>
+                <div>
+                    <section className="hero is-light">
+                        <nav className="navbar" role="navigation" aria-label="main navigation">
+                            <div className="navbar-menu is-active">
+                                <div className="navbar-start">
+                                    <Link to="/" className="navbar-item">Home</Link>
+                                    <Link to="/posts" className="navbar-item">Posts</Link>
+                                </div>
+                                <div className="navbar-end">
+                                    <div className="navbar-item">
+                                        <div className="buttons">
+                                            <Link to="/signup" className="button is-primary"><strong>Sign up</strong></Link>
+                                            <Link to="/login" className="button is-light">Log in</Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </section>
+                </div>
+
+                <section className="section">
+                    <div className="container">
+                        <Switch>
+                            <Route path="/login">
+                                <Login />
+                            </Route>
+                            <Route path="/signup">
+                                <Signup />
+                            </Route>
+                            <Route path="/posts">
+                                <Posts />
+                            </Route>
+                            <Route path="/" exact={true}>
+                                <Home />
+                            </Route>
+                            <Route path="*">
+                                <RouteNotFound />
+                            </Route>
+                        </Switch>
+                    </div>
+                </section>
             </Router>
         );
     }

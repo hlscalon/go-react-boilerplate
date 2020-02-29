@@ -4,9 +4,7 @@ class RouteNotFound extends Component {
 
     render() {
         return (
-            <div>
-                <p>Not found!</p>
-            </div>
+            <p>Not found!</p>
         );
     }
 }

@@ -4,9 +4,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <p>Login!</p>
-            </div>
+            <p>Login!</p>
         );
     }
 }
