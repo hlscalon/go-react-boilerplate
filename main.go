@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/hlscalon/go-react-boilerplate/server"
+	"github.com/hlscalon/go-react-boilerplate/router"
 )
 
 func main() {
-	server.New("3000")
+	router.New("3000")
 }
