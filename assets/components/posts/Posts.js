@@ -1,5 +1,14 @@
 import React, { Component } from "react";
 import { PostTable } from "./PostTable";
+import axios from "axios";
+
+// #TODO: get base url from environment
+// think of a better place to put this declaration
+// to be available for other components as well
+const publicAPI = axios.create({
+    baseURL: "http://localhost:3000/api/public/v1",
+    timeout: 30000 // 30 secs
+});
 
 class Posts extends Component {
 
@@ -16,15 +25,21 @@ class Posts extends Component {
     }
 
     listPosts() {
-        let posts = [
-            {"id": 1, "author": "hlscalon", "title": "this is the first post ever", "description": "this post is awewsome"},
-            {"id": 2, "author": "batman", "title": "gotham needs you", "description": "I am out of business"},
-            {"id": 3, "author": "robin", "title": "nooooo", "description": "Please Batman, don't go!!!"},
-        ];
-        this.setState({
-            posts: posts,
-            isLoaded: true,
-        });
+        publicAPI.get("/posts")
+            .then((response) => {
+                this.setState({
+                    posts: response.data,
+                    isLoaded: true,
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    posts: [],
+                    error: err.message,
+                    isLoaded: true,
+                });
+            })
+        ;
     }
 
     componentDidMount() {
