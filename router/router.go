@@ -1,13 +1,15 @@
 package router
 
 import (
+	"log"
 	"net/http"
 	"strings"
-	"log"
 	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+
+	routerPost "github.com/hlscalon/go-react-boilerplate/router/post"
 )
 
 func New(port string) {
@@ -24,7 +26,7 @@ func New(port string) {
 
 		// specific routes
 		r.Route("/posts", func(r chi.Router) {
-			r.Get("/", listPosts)
+			r.Get("/", routerPost.ListPosts)
 			// r.Post("/", createPost)
 
 			// r.Route("/{postID}", func(r chi.Router) {
@@ -36,9 +38,7 @@ func New(port string) {
 		})
 	})
 
-	// r.Route("/api/admin/v1", func(r chi.Router) {
-
-	// })
+	// r.Route("/api/admin/v1", func(r chi.Router) {})
 
 	r.Route("/", func(root chi.Router) {
 		fileServer(root, "", "/dist/", http.Dir("assets/public/dist/"))
@@ -46,7 +46,7 @@ func New(port string) {
 	})
 
 	log.Printf("Up and running on port %s...", port)
-	http.ListenAndServe(":" + port, r)
+	http.ListenAndServe(":"+port, r)
 }
 
 func fileServer(r chi.Router, basePath string, path string, root http.FileSystem) {
@@ -66,5 +66,3 @@ func fileServer(r chi.Router, basePath string, path string, root http.FileSystem
 		fs.ServeHTTP(w, r)
 	}))
 }
-
-func listPosts(w http.ResponseWriter, r *http.Request) {}
