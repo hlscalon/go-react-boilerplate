@@ -13,12 +13,12 @@ type DB struct {
 	db.Database
 }
 
-func NewDB() (*DB, error) {
+func NewDB(host, database, user, password string) (*DB, error) {
 	settings := mysql.ConnectionURL{
-		Host:     "localhost",  // MySQL server IP or name.
-		Database: "go_react_boilerplate",    // Database name.
-		User:     "root",     // Optional user name.
-		Password: "",     // Optional user password.
+		Host:     host,  // MySQL server IP or name.
+		Database: database,    // Database name.
+		User:     user,     // Optional user name.
+		Password: password,     // Optional user password.
 	}
 
 	sess, err := mysql.Open(settings)

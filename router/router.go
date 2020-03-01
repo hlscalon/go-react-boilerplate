@@ -16,34 +16,17 @@ type Env struct {
 	db models.Datastore
 }
 
-type Router struct {
-	router *chi.Mux
-	env *Env
-}
-
-func New() (*Router, error) {
-	db, err := models.NewDB()
-	if err != nil {
-		return nil, err
-	}
-
+func Init(db models.Datastore, port string) {
 	r := chi.NewRouter()
 	env := &Env{db}
 
-	return &Router{r, env}, nil
-}
+	r.Use(middleware.RequestID)
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(middleware.Timeout(60 * time.Second))
 
-func (r *Router) Init(port string) {
-	router := r.router
-	env := r.env
-
-	router.Use(middleware.RequestID)
-	router.Use(middleware.RealIP)
-	router.Use(middleware.Logger)
-	router.Use(middleware.Recoverer)
-	router.Use(middleware.Timeout(60 * time.Second))
-
-	router.Route("/api/public/v1", func(r chi.Router) {
+	r.Route("/api/public/v1", func(r chi.Router) {
 		// config to all public routes
 
 		// specific routes
@@ -62,13 +45,13 @@ func (r *Router) Init(port string) {
 
 	// r.Route("/api/admin/v1", func(r chi.Router) {})
 
-	router.Route("/", func(root chi.Router) {
+	r.Route("/", func(root chi.Router) {
 		fileServer(root, "", "/dist/", http.Dir("assets/public/dist/"))
 		fileServer(root, "", "/", http.Dir("assets/public/static/"))
 	})
 
 	log.Printf("Up and running on port %s...", port)
-	http.ListenAndServe(":"+port, r.router)
+	http.ListenAndServe(":"+port, r)
 }
 
 func fileServer(r chi.Router, basePath string, path string, root http.FileSystem) {
