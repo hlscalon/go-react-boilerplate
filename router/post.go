@@ -1,4 +1,4 @@
-package post
+package router
 
 import (
 	"net/http"
@@ -6,7 +6,6 @@ import (
 	"github.com/go-chi/render"
 
 	"github.com/hlscalon/go-react-boilerplate/models"
-	routerErr "github.com/hlscalon/go-react-boilerplate/router/err"
 )
 
 var posts = []*models.Post{
@@ -39,7 +38,7 @@ func newPostListResponse(posts []*models.Post) []render.Renderer {
 
 func ListPosts(w http.ResponseWriter, r *http.Request) {
 	if err := render.RenderList(w, r, newPostListResponse(posts)); err != nil {
-		render.Render(w, r, routerErr.ErrRender(err))
+		render.Render(w, r, ErrRender(err))
 		return
 	}
 }

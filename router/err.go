@@ -1,4 +1,4 @@
-package err
+package router
 
 import (
 	"github.com/go-chi/render"

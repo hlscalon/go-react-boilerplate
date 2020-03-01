@@ -8,8 +8,6 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-
-	routerPost "github.com/hlscalon/go-react-boilerplate/router/post"
 )
 
 func New(port string) {
@@ -26,7 +24,7 @@ func New(port string) {
 
 		// specific routes
 		r.Route("/posts", func(r chi.Router) {
-			r.Get("/", routerPost.ListPosts)
+			r.Get("/", ListPosts)
 			// r.Post("/", createPost)
 
 			// r.Route("/{postID}", func(r chi.Router) {
