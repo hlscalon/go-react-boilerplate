@@ -6,3 +6,7 @@ type Post struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
+
+func (db *DB) AllPosts() ([]*Post, error) {
+	return nil, nil
+}

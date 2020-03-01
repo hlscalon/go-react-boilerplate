@@ -31,7 +31,7 @@ func newPostListResponse(posts []*models.Post) []render.Renderer {
 	return list
 }
 
-func ListPosts(w http.ResponseWriter, r *http.Request) {
+func (env *Env) listPosts(w http.ResponseWriter, r *http.Request) {
 	posts := controllers.GetAllPosts()
 	if err := render.RenderList(w, r, newPostListResponse(posts)); err != nil {
 		render.Render(w, r, ErrRender(err))

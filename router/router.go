@@ -8,23 +8,47 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+
+	"github.com/hlscalon/go-react-boilerplate/models"
 )
 
-func New(port string) {
+type Env struct {
+	db models.Datastore
+}
+
+type Router struct {
+	router *chi.Mux
+	env *Env
+}
+
+func New() (*Router, error) {
+	db, err := models.NewDB()
+	if err != nil {
+		return nil, err
+	}
+
 	r := chi.NewRouter()
+	env := &Env{db}
 
-	r.Use(middleware.RequestID)
-	r.Use(middleware.RealIP)
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.Timeout(60 * time.Second))
+	return &Router{r, env}, nil
+}
 
-	r.Route("/api/public/v1", func(r chi.Router) {
+func (r *Router) Init(port string) {
+	router := r.router
+	env := r.env
+
+	router.Use(middleware.RequestID)
+	router.Use(middleware.RealIP)
+	router.Use(middleware.Logger)
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.Timeout(60 * time.Second))
+
+	router.Route("/api/public/v1", func(r chi.Router) {
 		// config to all public routes
 
 		// specific routes
 		r.Route("/posts", func(r chi.Router) {
-			r.Get("/", ListPosts)
+			r.Get("/", env.listPosts)
 			// r.Post("/", createPost)
 
 			// r.Route("/{postID}", func(r chi.Router) {
@@ -38,13 +62,13 @@ func New(port string) {
 
 	// r.Route("/api/admin/v1", func(r chi.Router) {})
 
-	r.Route("/", func(root chi.Router) {
+	router.Route("/", func(root chi.Router) {
 		fileServer(root, "", "/dist/", http.Dir("assets/public/dist/"))
 		fileServer(root, "", "/", http.Dir("assets/public/static/"))
 	})
 
 	log.Printf("Up and running on port %s...", port)
-	http.ListenAndServe(":"+port, r)
+	http.ListenAndServe(":"+port, r.router)
 }
 
 func fileServer(r chi.Router, basePath string, path string, root http.FileSystem) {
