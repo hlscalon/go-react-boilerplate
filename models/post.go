@@ -1,10 +1,10 @@
 package models
 
 type Post struct {
-	ID          int    `json:"id"` `db:"id,omitempty"`
-	Author      string `json:"author"` `db:"author"`
-	Title       string `json:"title"` `db:"title"`
-	Description string `json:"description"` `db:"description"`
+	ID          int    `json:"id" db:"id,omitempty"`
+	Author      string `json:"author" db:"author"`
+	Title       string `json:"title" db:"title"`
+	Description string `json:"description" db:"description"`
 }
 
 func (db *DB) AllPosts() ([]Post, error) {

@@ -5,12 +5,12 @@ import (
 
 	"github.com/go-chi/render"
 
-	"github.com/hlscalon/go-react-boilerplate/models"
 	"github.com/hlscalon/go-react-boilerplate/controllers"
+	"github.com/hlscalon/go-react-boilerplate/models"
 )
 
 type PostResponse struct {
-	*models.Post
+	models.Post
 }
 
 func (pr *PostResponse) Render(w http.ResponseWriter, r *http.Request) error {
@@ -18,12 +18,12 @@ func (pr *PostResponse) Render(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func newPostResponse(post *models.Post) *PostResponse {
+func newPostResponse(post models.Post) *PostResponse {
 	resp := &PostResponse{post}
 	return resp
 }
 
-func newPostListResponse(posts []*models.Post) []render.Renderer {
+func newPostListResponse(posts []models.Post) []render.Renderer {
 	list := []render.Renderer{}
 	for _, post := range posts {
 		list = append(list, newPostResponse(post))
@@ -32,7 +32,12 @@ func newPostListResponse(posts []*models.Post) []render.Renderer {
 }
 
 func (env *Env) listPosts(w http.ResponseWriter, r *http.Request) {
-	posts := controllers.GetAllPosts()
+	posts, err := controllers.AllPosts(env.db)
+	if err != nil {
+		render.Render(w, r, ErrInternal(err))
+		return
+	}
+
 	if err := render.RenderList(w, r, newPostListResponse(posts)); err != nil {
 		render.Render(w, r, ErrRender(err))
 		return

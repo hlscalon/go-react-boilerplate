@@ -6,7 +6,7 @@ import (
 )
 
 type Datastore interface {
-	AllPosts() ([]*Post, error)
+	AllPosts() ([]Post, error)
 }
 
 type DB struct {
@@ -15,20 +15,22 @@ type DB struct {
 
 func NewDB(host, database, user, password string) (*DB, error) {
 	settings := mysql.ConnectionURL{
-		Host:     host,  // MySQL server IP or name.
-		Database: database,    // Database name.
+		Host:     host,     // MySQL server IP or name.
+		Database: database, // Database name.
 		User:     user,     // Optional user name.
-		Password: password,     // Optional user password.
+		Password: password, // Optional user password.
 	}
 
-	sess, err := mysql.Open(settings)
+	db, err := mysql.Open(settings)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := sess.Ping(); err != nil {
+	if err := db.Ping(); err != nil {
 		return nil, err
 	}
 
-	return &DB{sess}, nil
+	db.SetLogging(true)
+
+	return &DB{db}, nil
 }
