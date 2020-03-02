@@ -3,10 +3,12 @@ package router
 import (
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
 
 	"github.com/hlscalon/go-react-boilerplate/controllers"
 	"github.com/hlscalon/go-react-boilerplate/models"
+	"github.com/hlscalon/go-react-boilerplate/utils"
 )
 
 type PostResponse struct {
@@ -39,6 +41,32 @@ func (env *Env) listPosts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := render.RenderList(w, r, newPostListResponse(posts)); err != nil {
+		render.Render(w, r, ErrRender(err))
+		return
+	}
+}
+
+func (env *Env) getPost(w http.ResponseWriter, r *http.Request) {
+	var post models.Post
+	var err error
+
+	if postID := chi.URLParam(r, "postID"); postID != "" {
+		var id int
+
+		if id, err = utils.StrToInt(postID); err == nil {
+			post, err = controllers.Post(env.db, id)
+		}
+	} else {
+		render.Render(w, r, ErrNotFound)
+		return
+	}
+
+	if err != nil {
+		render.Render(w, r, ErrNotFound)
+		return
+	}
+
+	if err := render.Render(w, r, newPostResponse(post)); err != nil {
 		render.Render(w, r, ErrRender(err))
 		return
 	}

@@ -34,12 +34,11 @@ func Init(db models.Datastore, port string) {
 			r.Get("/", env.listPosts)
 			// r.Post("/", createPost)
 
-			// r.Route("/{postID}", func(r chi.Router) {
-			// 	r.Use(postCtx)
-			// 	r.Get("/", getPost)
-			// 	r.Put("/", updatePost)
-			// 	r.Delete("/", deletePost)
-			// })
+			r.Route("/{postID}", func(r chi.Router) {
+				r.Get("/", env.getPost)
+				// r.Put("/", updatePost)
+				// r.Delete("/", deletePost)
+			})
 		})
 	})
 

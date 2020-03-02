@@ -16,3 +16,13 @@ func (db *DB) AllPosts() ([]Post, error) {
 
 	return posts, nil
 }
+
+func (db *DB) Post(ID int) (Post, error) {
+	var post Post
+	err := db.Collection("posts").Find("id", ID).One(&post)
+	if err != nil {
+		return Post{}, err
+	}
+
+	return post, nil
+}

@@ -7,6 +7,7 @@ import (
 
 type Datastore interface {
 	AllPosts() ([]Post, error)
+	Post(int) (Post, error)
 }
 
 type DB struct {
