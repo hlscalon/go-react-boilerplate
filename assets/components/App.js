@@ -46,6 +46,9 @@ class App extends Component {
                             <Route path="/posts">
                                 <Posts />
                             </Route>
+                            <Route path="/posts/:postID">
+                                <Posts />
+                            </Route>
                             <Route path="/" exact={true}>
                                 <Home />
                             </Route>

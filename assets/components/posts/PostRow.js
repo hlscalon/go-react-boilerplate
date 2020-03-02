@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 export class PostRow extends Component {
 
@@ -14,7 +15,9 @@ export class PostRow extends Component {
                 <td>{ post.id }</td>
                 <td>{ post.author }</td>
                 <td>{ post.title }</td>
-                <td></td>
+                <td>
+                    <Link to={"/posts/" + post.id} className="button">edit</Link>
+                </td>
             </tr>
         );
     }
