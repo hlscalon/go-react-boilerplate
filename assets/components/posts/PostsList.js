@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PostTable } from "./PostTable";
+import { PostsListTable } from "./PostsListTable";
 import axios from "axios";
 
 // #TODO: get base url from environment
@@ -10,7 +10,7 @@ const publicAPI = axios.create({
     timeout: 30000 // 30 secs
 });
 
-class Posts extends Component {
+class PostsList extends Component {
 
     constructor(props) {
         super(props);
@@ -54,7 +54,7 @@ class Posts extends Component {
         } else if (this.state.error) {
             table = <div>Problem loading information:<br/>{this.state.error}</div>;
         } else {
-            table = <PostTable posts={ this.state.posts } />;
+            table = <PostsListTable posts={ this.state.posts } />;
         }
 
         return table;
@@ -62,4 +62,4 @@ class Posts extends Component {
 
 }
 
-export default Posts;
+export default PostsList;

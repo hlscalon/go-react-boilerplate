@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export class PostRow extends Component {
+export class PostsListRow extends Component {
 
     constructor(props) {
         super(props);

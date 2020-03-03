@@ -3,7 +3,8 @@ import {HashRouter as Router, Switch, Route, Link} from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
-import Posts from "./posts/Posts";
+import PostsList from "./posts/PostsList";
+import Post from "./posts/Post";
 import RouteNotFound from "./RouteNotFound";
 
 import "../styles/css/index.css";
@@ -43,11 +44,11 @@ class App extends Component {
                             <Route path="/signup">
                                 <Signup />
                             </Route>
-                            <Route path="/posts">
-                                <Posts />
-                            </Route>
                             <Route path="/posts/:postID">
-                                <Posts />
+                                <Post />
+                            </Route>
+                            <Route path="/posts">
+                                <PostsList />
                             </Route>
                             <Route path="/" exact={true}>
                                 <Home />

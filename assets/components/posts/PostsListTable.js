@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { PostRow } from "./PostRow";
+import { PostsListRow } from "./PostsListRow";
 
-export class PostTable extends Component {
+export class PostsListTable extends Component {
 
     constructor(props) {
         super(props);
@@ -11,7 +11,7 @@ export class PostTable extends Component {
         let rows = [];
 
         this.props.posts.forEach(function(post) {
-            rows.push(<PostRow key={ post.id } post={ post } />);
+            rows.push(<PostsListRow key={ post.id } post={ post } />);
         });
 
         return (
