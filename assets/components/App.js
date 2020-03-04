@@ -5,6 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import PostsList from "./posts/PostsList";
 import PostsDetail from "./posts/PostsDetail";
+import PostsDetailAdmin from "./posts/PostsDetailAdmin";
 import RouteNotFound from "./RouteNotFound";
 
 import "../styles/css/index.css";
@@ -43,6 +44,9 @@ class App extends Component {
                             </Route>
                             <Route path="/signup">
                                 <Signup />
+                            </Route>
+                            <Route path="/admin/posts/:postID">
+                                <PostsDetailAdmin />
                             </Route>
                             <Route path="/posts/:postID">
                                 <PostsDetail />

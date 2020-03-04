@@ -42,7 +42,18 @@ func Init(db models.Datastore, port string) {
 		})
 	})
 
-	// r.Route("/api/admin/v1", func(r chi.Router) {})
+	r.Route("/api/admin/v1", func(r chi.Router) {
+		r.Route("/posts", func(r chi.Router) {
+			r.Get("/", env.listPosts)
+			// r.Post("/", createPost)
+
+			r.Route("/{postID}", func(r chi.Router) {
+				r.Get("/", env.getPost)
+				// r.Put("/", updatePost)
+				// r.Delete("/", deletePost)
+			})
+		})
+	})
 
 	r.Route("/", func(root chi.Router) {
 		fileServer(root, "", "/dist/", http.Dir("assets/public/dist/"))

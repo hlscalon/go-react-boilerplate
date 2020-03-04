@@ -16,7 +16,7 @@ class PostsDetail extends Component {
         super(props);
 
         this.state = {
-            post: [],
+            post: {},
             id: props.match.params.postID,
             isLoaded: false,
             error: null,
@@ -28,7 +28,7 @@ class PostsDetail extends Component {
     getPost() {
         if (!this.state.id || this.state.id <= 0) {
             this.setState({
-                post: [],
+                post: {},
                 isLoaded: true,
                 error: "Invalid identifier",
             });
@@ -45,7 +45,7 @@ class PostsDetail extends Component {
             })
             .catch((err) => {
                 this.setState({
-                    post: [],
+                    post: {},
                     error: err.message,
                     isLoaded: true,
                 });
