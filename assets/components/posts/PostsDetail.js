@@ -10,7 +10,7 @@ const publicAPI = axios.create({
     timeout: 30000 // 30 secs
 });
 
-class Post extends Component {
+class PostsDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -66,11 +66,20 @@ class Post extends Component {
             html = <div>Problem loading information:<br/>{ this.state.error }</div>;
         } else {
             html =
-                <div>
-                    <p>ID: { this.state.post.id }</p>
-                    <p>Author: { this.state.post.author }</p>
-                    <p>Title: { this.state.post.title }</p>
-                    <p>Description: { this.state.post.description }</p>
+                <div className="card">
+                    <header className="card-header">
+                        <p className="card-header-title">
+                            { this.state.post.title }
+                        </p>
+                    </header>
+                    <div className="card-content">
+                        <div className="content">
+                            { this.state.post.description }
+                        </div>
+                        <p className="subtitle is-6">
+                            @{ this.state.post.author }
+                        </p>
+                    </div>
                 </div>
             ;
         }
@@ -80,4 +89,4 @@ class Post extends Component {
 
 }
 
-export default withRouter(Post);
+export default withRouter(PostsDetail);

@@ -4,7 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
 import PostsList from "./posts/PostsList";
-import Post from "./posts/Post";
+import PostsDetail from "./posts/PostsDetail";
 import RouteNotFound from "./RouteNotFound";
 
 import "../styles/css/index.css";
@@ -45,7 +45,7 @@ class App extends Component {
                                 <Signup />
                             </Route>
                             <Route path="/posts/:postID">
-                                <Post />
+                                <PostsDetail />
                             </Route>
                             <Route path="/posts">
                                 <PostsList />

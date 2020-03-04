@@ -16,7 +16,7 @@ export class PostsListRow extends Component {
                 <td>{ post.author }</td>
                 <td>{ post.title }</td>
                 <td>
-                    <Link to={"/posts/" + post.id} className="button">edit</Link>
+                    <Link to={"/posts/" + post.id} className="button">show</Link>
                 </td>
             </tr>
         );
