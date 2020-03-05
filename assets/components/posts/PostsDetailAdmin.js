@@ -23,6 +23,7 @@ class PostsDetailAdmin extends Component {
         };
 
         this.getPost = this.getPost.bind(this);
+        this.updatePost = this.updatePost.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -32,22 +33,21 @@ class PostsDetailAdmin extends Component {
         const value = target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
 
-        // this.setState({
-        //     post: {
-        //         [name]: value
-        //     }
-        // });
-
-        let post = {...this.state.post};
-        post.name = value;
-
         this.setState({
-            post
+            post: {
+                ...this.state.post,
+                [name]: value
+            }
         });
     }
 
     handleSubmit(event) {
+        this.updatePost();
         event.preventDefault();
+    }
+
+    updatePost() {
+
     }
 
     getPost() {
