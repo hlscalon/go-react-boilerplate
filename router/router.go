@@ -32,12 +32,10 @@ func Init(db models.Datastore, port string) {
 		// specific routes
 		r.Route("/posts", func(r chi.Router) {
 			r.Get("/", env.listPosts)
-			// r.Post("/", createPost)
 
 			r.Route("/{postID}", func(r chi.Router) {
+				r.Use(env.postCtx)
 				r.Get("/", env.getPost)
-				// r.Put("/", updatePost)
-				// r.Delete("/", deletePost)
 			})
 		})
 	})
@@ -48,8 +46,9 @@ func Init(db models.Datastore, port string) {
 			// r.Post("/", createPost)
 
 			r.Route("/{postID}", func(r chi.Router) {
+				r.Use(env.postCtx)
 				r.Get("/", env.getPost)
-				// r.Put("/", updatePost)
+				r.Put("/", env.updatePost)
 				// r.Delete("/", deletePost)
 			})
 		})

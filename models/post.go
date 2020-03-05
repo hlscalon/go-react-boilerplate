@@ -26,3 +26,12 @@ func (db *DB) Post(ID int) (Post, error) {
 
 	return post, nil
 }
+
+func (db *DB) UpdatePost(post Post) (Post, error) {
+	err := db.Collection("posts").Find("id", post.ID).Update(post)
+	if err != nil {
+		return Post{}, err
+	}
+
+	return db.Post(post.ID)
+}
