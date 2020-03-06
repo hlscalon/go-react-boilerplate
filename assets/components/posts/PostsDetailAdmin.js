@@ -5,7 +5,7 @@ import axios from "axios";
 // #TODO: get base url from environment
 // think of a better place to put this declaration
 // to be available for other components as well
-const publicAPI = axios.create({
+const adminAPI = axios.create({
     baseURL: "http://localhost:3000/api/admin/v1",
     timeout: 30000 // 30 secs
 });
@@ -22,8 +22,9 @@ class PostsDetailAdmin extends Component {
             error: null,
         };
 
+        this.history = props.history;
         this.getPost = this.getPost.bind(this);
-        this.updatePost = this.updatePost.bind(this);
+        this.savePost = this.savePost.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -42,12 +43,25 @@ class PostsDetailAdmin extends Component {
     }
 
     handleSubmit(event) {
-        this.updatePost();
+        this.savePost();
         event.preventDefault();
     }
 
-    updatePost() {
+    savePost() {
+        var promise = null;
+        if (this.state.id > 0) {
+            promise = adminAPI.put("/posts/" + this.state.id, this.state.post);
+        } else {
+            promise = adminAPI.post("/posts", this.state.post);
+        }
 
+        promise
+        .then((response) => {
+            this.history.push("/posts");
+        })
+        .catch((err) => {
+            alert(err.message);
+        });
     }
 
     getPost() {
@@ -61,7 +75,7 @@ class PostsDetailAdmin extends Component {
             return;
         }
 
-        publicAPI.get("/posts/" + this.state.id)
+        adminAPI.get("/posts/" + this.state.id)
             .then((response) => {
                 this.setState({
                     post: response.data,
