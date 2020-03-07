@@ -52,3 +52,20 @@ func (db *DB) CreatePost(post Post) (Post, error) {
 
 	return Post{}, errors.New("Error getting ID of newly created element")
 }
+
+func (db *DB) DeletePost(ID int) (Post, error) {
+	var post Post
+
+	res := db.Collection("posts").Find("id", ID)
+	err := res.One(&post)
+	if err != nil {
+		return Post{}, err
+	}
+
+	err = res.Delete()
+	if err != nil {
+		return Post{}, err
+	}
+
+	return post, nil
+}

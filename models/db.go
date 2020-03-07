@@ -10,6 +10,7 @@ type Datastore interface {
 	Post(int) (Post, error)
 	UpdatePost(Post) (Post, error)
 	CreatePost(Post) (Post, error)
+	DeletePost(int) (Post, error)
 }
 
 type DB struct {

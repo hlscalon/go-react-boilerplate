@@ -49,7 +49,7 @@ func Init(db models.Datastore, port string) {
 				r.Use(env.postCtx)
 				r.Get("/", env.getPost)
 				r.Put("/", env.updatePost)
-				// r.Delete("/", deletePost)
+				r.Delete("/", env.deletePost)
 			})
 		})
 	})

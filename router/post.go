@@ -118,6 +118,21 @@ func (env *Env) updatePost(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (env *Env) deletePost(w http.ResponseWriter, r *http.Request) {
+	post := r.Context().Value("post").(models.Post)
+
+	post, err := controllers.DeletePost(env.db, post.ID)
+	if err != nil {
+		render.Render(w, r, ErrNotFound)
+		return
+	}
+
+	if err := render.Render(w, r, newPostResponse(post)); err != nil {
+		render.Render(w, r, ErrRender(err))
+		return
+	}
+}
+
 func (env *Env) createPost(w http.ResponseWriter, r *http.Request) {
 	data := &PostRequest{}
 	if err := render.Bind(r, data); err != nil {
