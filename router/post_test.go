@@ -4,41 +4,18 @@ import (
     "net/http"
     "net/http/httptest"
     "testing"
+    "context"
+
+    "github.com/go-chi/chi"
 
     "github.com/hlscalon/go-react-boilerplate/models"
 )
 
-type mockDB struct{}
-
-func (mdb *mockDB) AllPosts() ([]models.Post, error) {
-    posts := make([]models.Post, 0)
-    posts = append(posts, models.Post{1, "hlscalon", "hello", "Hello, World!"})
-    posts = append(posts, models.Post{2, "user", "summer", "Summer is ending!"})
-    posts = append(posts, models.Post{3, "tester", "day", "Today is a sunny day"})
-    return posts, nil
-}
-
-func (mdb *mockDB) Post(ID int) (models.Post, error) {
-    return models.Post{}, nil
-}
-
-func (mdb *mockDB) UpdatePost(post models.Post) (models.Post, error) {
-    return models.Post{}, nil
-}
-
-func (mdb *mockDB) CreatePost(post models.Post) (models.Post, error) {
-    return models.Post{}, nil
-}
-
-func (mdb *mockDB) DeletePost(ID int) (models.Post, error) {
-    return models.Post{}, nil
-}
-
 func TestListPosts(t *testing.T) {
     rec := httptest.NewRecorder()
-    req, _ := http.NewRequest("GET", "/posts", nil)
+    req, _ := http.NewRequest("GET", "/", nil) // api/public/v1/posts
 
-    env := Env{db: &mockDB{}}
+    env := Env{db: &models.MockDB{}}
     http.HandlerFunc(env.listPosts).ServeHTTP(rec, req)
 
     expected :=
@@ -53,6 +30,29 @@ func TestListPosts(t *testing.T) {
                 "\"id\":3,\"author\":\"tester\",\"title\":\"day\",\"description\":\"Today is a sunny day\"" +
             "}" +
         "]" +
+        "\n"
+
+    if expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    }
+}
+
+func TestGetPost(t *testing.T) {
+    req, _ := http.NewRequest("GET", "/", nil) // api/public/v1/posts/1
+
+    rctx := chi.NewRouteContext()
+    rctx.URLParams.Add("postID", "1")
+
+    req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
+
+    rec := httptest.NewRecorder()
+    env := Env{db: &models.MockDB{}}
+    env.postCtx(http.HandlerFunc(env.getPost)).ServeHTTP(rec, req)
+
+    expected :=
+        "{" +
+            "\"id\":1,\"author\":\"hlscalon\",\"title\":\"hello\",\"description\":\"Hello, World!\"" +
+        "}" +
         "\n"
 
     if expected != rec.Body.String() {
