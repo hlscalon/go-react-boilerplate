@@ -41,7 +41,7 @@ export class PostsListRowAdmin extends Component {
                 <td>{ post.title }</td>
                 <td>
                     <Link to={"/admin/posts/" + post.id} className="button">edit</Link>
-                    <a className="button" onClick={ this.deletePost }>delete</a>
+                    <button className="button" onClick={ this.deletePost }>delete</button>
                 </td>
             </tr>
         );

@@ -137,7 +137,7 @@ class PostsDetailAdmin extends Component {
 
                     <div className="field is-grouped">
                         <p className="control">
-                            <button className="button is-primary" type="submit">Submit</button>
+                            <button className="button is-primary" type="submit">Save</button>
                         </p>
                         <p className="control">
                             <Link to={"/admin/posts/"} className="button is-light">Cancel</Link>
