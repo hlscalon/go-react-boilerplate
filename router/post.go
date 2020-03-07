@@ -1,9 +1,9 @@
 package router
 
 import (
-	"net/http"
-	"errors"
 	"context"
+	"errors"
+	"net/http"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/render"
