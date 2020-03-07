@@ -17,12 +17,13 @@ class PostsDetailAdmin extends Component {
 
         this.state = {
             post: {},
-            id: props.match.params.postID,
+            id: props.match.params.postID || 0,
             isLoaded: false,
             error: null,
         };
 
         this.history = props.history;
+        this.location = props.location;
         this.getPost = this.getPost.bind(this);
         this.savePost = this.savePost.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -93,7 +94,13 @@ class PostsDetailAdmin extends Component {
     }
 
     componentDidMount() {
-        this.getPost();
+        if (this.location.pathname != "/admin/posts/create") {
+            this.getPost();
+        } else {
+            this.setState({
+                isLoaded: true,
+            });
+        }
     }
 
     render() {

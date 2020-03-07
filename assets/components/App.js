@@ -45,6 +45,9 @@ class App extends Component {
                             <Route path="/signup">
                                 <Signup />
                             </Route>
+                            <Route path="/admin/posts/create">
+                                <PostsDetailAdmin />
+                            </Route>
                             <Route path="/admin/posts/:postID">
                                 <PostsDetailAdmin />
                             </Route>
