@@ -1,5 +1,9 @@
 package models
 
+import (
+	"errors"
+)
+
 type Post struct {
 	ID          int    `json:"id" db:"id,omitempty"`
 	Author      string `json:"author" db:"author"`
@@ -34,4 +38,17 @@ func (db *DB) UpdatePost(post Post) (Post, error) {
 	}
 
 	return db.Post(post.ID)
+}
+
+func (db *DB) CreatePost(post Post) (Post, error) {
+	ID, err := db.Collection("posts").Insert(post)
+	if err != nil {
+		return Post{}, err
+	}
+
+	if ID, ok := ID.(int64); ok {
+		return db.Post(int(ID))
+	}
+
+	return Post{}, errors.New("Error getting ID of newly created element")
 }

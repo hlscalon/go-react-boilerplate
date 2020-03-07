@@ -117,3 +117,22 @@ func (env *Env) updatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (env *Env) createPost(w http.ResponseWriter, r *http.Request) {
+	data := &PostRequest{}
+	if err := render.Bind(r, data); err != nil {
+		render.Render(w, r, ErrInvalidRequest(err))
+		return
+	}
+
+	post, err := controllers.CreatePost(env.db, *data.Post)
+	if err != nil {
+		render.Render(w, r, ErrNotFound)
+		return
+	}
+
+	if err := render.Render(w, r, newPostResponse(post)); err != nil {
+		render.Render(w, r, ErrRender(err))
+		return
+	}
+}

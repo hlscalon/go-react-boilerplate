@@ -43,7 +43,7 @@ func Init(db models.Datastore, port string) {
 	r.Route("/api/admin/v1", func(r chi.Router) {
 		r.Route("/posts", func(r chi.Router) {
 			r.Get("/", env.listPosts)
-			// r.Post("/", createPost)
+			r.Post("/", env.createPost)
 
 			r.Route("/{postID}", func(r chi.Router) {
 				r.Use(env.postCtx)

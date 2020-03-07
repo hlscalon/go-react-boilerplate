@@ -15,3 +15,7 @@ func Post(db models.Datastore, ID int) (models.Post, error) {
 func UpdatePost(db models.Datastore, post models.Post) (models.Post, error) {
 	return db.UpdatePost(post)
 }
+
+func CreatePost(db models.Datastore, post models.Post) (models.Post, error) {
+	return db.CreatePost(post)
+}
