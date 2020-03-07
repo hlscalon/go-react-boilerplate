@@ -3,9 +3,10 @@ import {HashRouter as Router, Switch, Route, Link} from "react-router-dom";
 import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
-import PostsList from "./posts/PostsList";
-import PostsDetail from "./posts/PostsDetail";
-import PostsDetailAdmin from "./posts/PostsDetailAdmin";
+import PostsList from "./posts/public/PostsList";
+import PostsDetail from "./posts/public/PostsDetail";
+import PostsDetailAdmin from "./posts/admin/PostsDetailAdmin";
+import PostsListAdmin from "./posts/admin/PostsListAdmin";
 import RouteNotFound from "./RouteNotFound";
 
 import "../styles/css/index.css";
@@ -53,6 +54,9 @@ class App extends Component {
                             </Route>
                             <Route path="/posts/:postID">
                                 <PostsDetail />
+                            </Route>
+                            <Route path="/admin/posts">
+                                <PostsListAdmin />
                             </Route>
                             <Route path="/posts">
                                 <PostsList />

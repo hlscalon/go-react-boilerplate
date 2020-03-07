@@ -57,12 +57,13 @@ class PostsDetailAdmin extends Component {
         }
 
         promise
-        .then((response) => {
-            this.history.push("/posts");
-        })
-        .catch((err) => {
-            alert(err.message);
-        });
+            .then((response) => {
+                this.history.push("/admin/posts");
+            })
+            .catch((err) => {
+                alert(err.message);
+            })
+        ;
     }
 
     getPost() {
@@ -139,7 +140,7 @@ class PostsDetailAdmin extends Component {
                             <button className="button is-primary" type="submit">Submit</button>
                         </p>
                         <p className="control">
-                            <Link to={"/posts/"} className="button is-light">Cancel</Link>
+                            <Link to={"/admin/posts/"} className="button is-light">Cancel</Link>
                         </p>
                     </div>
                 </form>
