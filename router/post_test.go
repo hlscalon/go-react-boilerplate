@@ -59,3 +59,26 @@ func TestGetPost(t *testing.T) {
         t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
     }
 }
+
+func TestGetPostNotFound(t *testing.T) {
+    req, _ := http.NewRequest("GET", "/", nil) // api/public/v1/posts/1
+
+    rctx := chi.NewRouteContext()
+    rctx.URLParams.Add("postID", "10000")
+
+    req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
+
+    rec := httptest.NewRecorder()
+    env := Env{db: &models.MockDB{}}
+    env.postCtx(http.HandlerFunc(env.getPost)).ServeHTTP(rec, req)
+
+    expected :=
+        "{" +
+            "\"status\":\"Resource not found.\"" +
+        "}" +
+        "\n"
+
+    if expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    }
+}

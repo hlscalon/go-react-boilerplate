@@ -1,5 +1,9 @@
 package models
 
+import (
+	"errors"
+)
+
 type MockDB struct{}
 
 var postsMockDB = []Post{
@@ -19,7 +23,7 @@ func (mdb *MockDB) Post(ID int) (Post, error) {
 		}
 	}
 
-    return Post{}, nil
+    return Post{}, errors.New("Resource not found")
 }
 
 func (mdb *MockDB) UpdatePost(post Post) (Post, error) {
