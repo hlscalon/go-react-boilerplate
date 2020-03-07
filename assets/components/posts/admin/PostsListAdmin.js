@@ -54,7 +54,7 @@ class PostsListAdmin extends Component {
         } else if (this.state.error) {
             table = <div>Problem loading information:<br/>{this.state.error}</div>;
         } else {
-            table = <PostsListTableAdmin posts={ this.state.posts } />;
+            table = <PostsListTableAdmin posts={ this.state.posts } listPosts={ this.listPosts } />;
         }
 
         return table;

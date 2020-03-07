@@ -10,8 +10,9 @@ export class PostsListTableAdmin extends Component {
     render() {
         let rows = [];
 
+        let listPosts = this.props.listPosts;
         this.props.posts.forEach(function(post) {
-            rows.push(<PostsListRowAdmin key={ post.id } post={ post } />);
+            rows.push(<PostsListRowAdmin key={ post.id } post={ post } listPosts={ listPosts } />);
         });
 
         return (
