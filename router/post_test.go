@@ -33,8 +33,8 @@ func TestListPosts(t *testing.T) {
         "]" +
         "\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 200 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -56,8 +56,8 @@ func TestGetPost(t *testing.T) {
         "}" +
         "\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 200 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -79,8 +79,8 @@ func TestGetPostNotFound(t *testing.T) {
         "}" +
         "\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 404 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 404, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -103,8 +103,8 @@ func TestUpdatePost(t *testing.T) {
         byteData +
         "\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 200 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -124,8 +124,8 @@ func TestUpdatePostInvalidContentType(t *testing.T) {
 
     expected := "{\"status\":\"Invalid request.\",\"error\":\"render: unable to automatically decode the request content type\"}\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 400 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 400, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -141,8 +141,8 @@ func TestCreatePost(t *testing.T) {
 
     expected := "{\"id\":4,\"author\":\"batman\",\"title\":\"Gotham I'm coming!\",\"description\":\"All criminals in town, be aware!\"}\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 201 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 201, rec.Code, expected, rec.Body.String())
     }
 }
 
@@ -160,7 +160,7 @@ func TestDeletePost(t *testing.T) {
 
     expected := "{\"id\":4,\"author\":\"batman\",\"title\":\"Gotham I'm coming!\",\"description\":\"All criminals in town, be aware!\"}\n"
 
-    if expected != rec.Body.String() {
-        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    if rec.Code != 200 || expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
     }
 }
