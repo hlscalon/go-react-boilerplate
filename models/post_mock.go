@@ -27,14 +27,43 @@ func (mdb *MockDB) Post(ID int) (*Post, error) {
 }
 
 func (mdb *MockDB) UpdatePost(post *Post) (*Post, error) {
-    return &Post{}, nil
+    for _, p := range postsMockDB {
+        if p.ID == post.ID {
+            p = post
+
+            return post, nil
+        }
+    }
+
+    return nil, errors.New("Resource not found")
 }
 
 func (mdb *MockDB) CreatePost(post *Post) (*Post, error) {
-    return &Post{}, nil
+    lastID := postsMockDB[len(postsMockDB) - 1 : len(postsMockDB)][0].ID
+
+    post.ID = lastID + 1
+    postsMockDB = append(postsMockDB, post)
+
+    return post, nil
 }
 
 func (mdb *MockDB) DeletePost(ID int) (*Post, error) {
-    return &Post{}, nil
+    var posts []*Post
+    var post *Post
+
+    for _, p := range postsMockDB {
+        if p.ID == ID {
+            post = p
+        } else {
+            posts = append(posts, p)
+        }
+    }
+
+    postsMockDB = posts
+    if post != nil {
+        return post, nil
+    }
+
+    return nil, errors.New("Resource not found")
 }
 
