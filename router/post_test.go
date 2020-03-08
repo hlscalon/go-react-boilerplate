@@ -128,3 +128,39 @@ func TestUpdatePostInvalidContentType(t *testing.T) {
         t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
     }
 }
+
+func TestCreatePost(t *testing.T) {
+    byteData := `{"author":"batman","title":"Gotham I'm coming!","description":"All criminals in town, be aware!"}`
+    body := strings.NewReader(byteData)
+    req, _ := http.NewRequest("POST", "/", body) // api/admin/v1/posts/
+    req.Header.Set("Content-Type", "application/json")
+
+    rec := httptest.NewRecorder()
+    env := Env{db: &models.MockDB{}}
+    http.HandlerFunc(env.createPost).ServeHTTP(rec, req)
+
+    expected := "{\"id\":4,\"author\":\"batman\",\"title\":\"Gotham I'm coming!\",\"description\":\"All criminals in town, be aware!\"}\n"
+
+    if expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    }
+}
+
+func TestDeletePost(t *testing.T) {
+    req, _ := http.NewRequest("DELETE", "/", nil) // api/admin/v1/posts/4
+
+    rctx := chi.NewRouteContext()
+    rctx.URLParams.Add("postID", "4")
+
+    req = req.WithContext(context.WithValue(req.Context(), chi.RouteCtxKey, rctx))
+
+    rec := httptest.NewRecorder()
+    env := Env{db: &models.MockDB{}}
+    env.postCtx(http.HandlerFunc(env.deletePost)).ServeHTTP(rec, req)
+
+    expected := "{\"id\":4,\"author\":\"batman\",\"title\":\"Gotham I'm coming!\",\"description\":\"All criminals in town, be aware!\"}\n"
+
+    if expected != rec.Body.String() {
+        t.Errorf("\nExpected = %#v\nObtained = %#v", expected, rec.Body.String())
+    }
+}
