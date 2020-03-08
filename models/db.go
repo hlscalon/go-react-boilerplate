@@ -6,11 +6,11 @@ import (
 )
 
 type Datastore interface {
-	AllPosts() ([]Post, error)
-	Post(int) (Post, error)
-	UpdatePost(Post) (Post, error)
-	CreatePost(Post) (Post, error)
-	DeletePost(int) (Post, error)
+	AllPosts() ([]*Post, error)
+	Post(int) (*Post, error)
+	UpdatePost(*Post) (*Post, error)
+	CreatePost(*Post) (*Post, error)
+	DeletePost(int) (*Post, error)
 }
 
 type DB struct {

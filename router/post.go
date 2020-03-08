@@ -14,7 +14,7 @@ import (
 )
 
 type PostResponse struct {
-	models.Post
+	*models.Post
 }
 
 type PostRequest struct {
@@ -26,12 +26,12 @@ func (pr *PostResponse) Render(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func newPostResponse(post models.Post) *PostResponse {
+func newPostResponse(post *models.Post) *PostResponse {
 	resp := &PostResponse{post}
 	return resp
 }
 
-func newPostListResponse(posts []models.Post) []render.Renderer {
+func newPostListResponse(posts []*models.Post) []render.Renderer {
 	list := []render.Renderer{}
 	for _, post := range posts {
 		list = append(list, newPostResponse(post))
@@ -65,7 +65,7 @@ func (env *Env) listPosts(w http.ResponseWriter, r *http.Request) {
 // the Post could not be found, we stop here and return a 404.
 func (env *Env) postCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var post models.Post
+		var post *models.Post
 		var err error
 
 		if postID := chi.URLParam(r, "postID"); postID != "" {
@@ -78,6 +78,7 @@ func (env *Env) postCtx(next http.Handler) http.Handler {
 			render.Render(w, r, ErrNotFound)
 			return
 		}
+
 		if err != nil {
 			render.Render(w, r, ErrNotFound)
 			return
@@ -89,7 +90,7 @@ func (env *Env) postCtx(next http.Handler) http.Handler {
 }
 
 func (env *Env) getPost(w http.ResponseWriter, r *http.Request) {
-	post := r.Context().Value("post").(models.Post)
+	post := r.Context().Value("post").(*models.Post)
 
 	if err := render.Render(w, r, newPostResponse(post)); err != nil {
 		render.Render(w, r, ErrRender(err))
@@ -98,15 +99,15 @@ func (env *Env) getPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (env *Env) updatePost(w http.ResponseWriter, r *http.Request) {
-	post := r.Context().Value("post").(models.Post)
+	post := r.Context().Value("post").(*models.Post)
 
-	data := &PostRequest{Post: &post}
+	data := &PostRequest{post}
 	if err := render.Bind(r, data); err != nil {
 		render.Render(w, r, ErrInvalidRequest(err))
 		return
 	}
 
-	post, err := controllers.UpdatePost(env.db, *data.Post)
+	post, err := controllers.UpdatePost(env.db, data.Post)
 	if err != nil {
 		render.Render(w, r, ErrNotFound)
 		return
@@ -119,7 +120,7 @@ func (env *Env) updatePost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (env *Env) deletePost(w http.ResponseWriter, r *http.Request) {
-	post := r.Context().Value("post").(models.Post)
+	post := r.Context().Value("post").(*models.Post)
 
 	post, err := controllers.DeletePost(env.db, post.ID)
 	if err != nil {
@@ -140,7 +141,7 @@ func (env *Env) createPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	post, err := controllers.CreatePost(env.db, *data.Post)
+	post, err := controllers.CreatePost(env.db, data.Post)
 	if err != nil {
 		render.Render(w, r, ErrNotFound)
 		return
