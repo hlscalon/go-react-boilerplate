@@ -147,6 +147,7 @@ func (env *Env) createPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
 	if err := render.Render(w, r, newPostResponse(post)); err != nil {
 		render.Render(w, r, ErrRender(err))
 		return

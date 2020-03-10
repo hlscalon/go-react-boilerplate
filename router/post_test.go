@@ -50,11 +50,7 @@ func TestGetPost(t *testing.T) {
 	env := Env{db: &models.MockDB{}}
 	env.postCtx(http.HandlerFunc(env.getPost)).ServeHTTP(rec, req)
 
-	expected :=
-		"{" +
-			"\"id\":1,\"author\":\"hlscalon\",\"title\":\"hello\",\"description\":\"Hello, World!\"" +
-			"}" +
-			"\n"
+	expected := "{\"id\":1,\"author\":\"hlscalon\",\"title\":\"hello\",\"description\":\"Hello, World!\"}\n"
 
 	if rec.Code != 200 || expected != rec.Body.String() {
 		t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
@@ -73,11 +69,7 @@ func TestGetPostNotFound(t *testing.T) {
 	env := Env{db: &models.MockDB{}}
 	env.postCtx(http.HandlerFunc(env.getPost)).ServeHTTP(rec, req)
 
-	expected :=
-		"{" +
-			"\"status\":\"Resource not found.\"" +
-			"}" +
-			"\n"
+	expected := "{\"status\":\"Resource not found.\"}\n"
 
 	if rec.Code != 404 || expected != rec.Body.String() {
 		t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 404, rec.Code, expected, rec.Body.String())
@@ -99,9 +91,7 @@ func TestUpdatePost(t *testing.T) {
 	env := Env{db: &models.MockDB{}}
 	env.postCtx(http.HandlerFunc(env.updatePost)).ServeHTTP(rec, req)
 
-	expected :=
-		byteData +
-			"\n"
+	expected := byteData + "\n"
 
 	if rec.Code != 200 || expected != rec.Body.String() {
 		t.Errorf("\nExpected = %#v\nObtained = %#v\nExpected = %#v\nObtained = %#v", 200, rec.Code, expected, rec.Body.String())
