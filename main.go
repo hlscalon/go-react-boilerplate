@@ -1,3 +1,14 @@
+//
+// This program is a small example of a boilerplate that embraces go on server-side and react on client-side
+// On server-side it is divided in some packages:
+// 	- router
+// 	- controllers
+// 	- models
+// 	- utils
+//
+// It uses chi for routing and upper.io as database layer
+//
+
 package main
 
 import (

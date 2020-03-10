@@ -1,3 +1,12 @@
+//
+// Package: router
+//
+// All routes on our program are defined in this file. The functions to interact with are defined in other files, like 'post.go'
+// It uses chi as a router (a layer above net/http), and some of it's middlewares
+//
+// Our frontend assets are served here as well, ie. dist/ and images
+//
+
 package router
 
 import (
