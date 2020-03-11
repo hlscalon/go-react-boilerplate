@@ -14,8 +14,8 @@ package main
 import (
 	"log"
 
-	"github.com/hlscalon/go-react-boilerplate/router"
 	"github.com/hlscalon/go-react-boilerplate/models"
+	"github.com/hlscalon/go-react-boilerplate/router"
 )
 
 func main() {
