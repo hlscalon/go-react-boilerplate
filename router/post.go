@@ -13,16 +13,18 @@ import (
 	"github.com/hlscalon/go-react-boilerplate/utils"
 )
 
+// JSON response
 type PostResponse struct {
 	*models.Post
 }
 
+// JSON request
 type PostRequest struct {
 	*models.Post
 }
 
+// Pre-processing before a response is marshalled and sent across the wire
 func (pr *PostResponse) Render(w http.ResponseWriter, r *http.Request) error {
-	// Pre-processing before a response is marshalled and sent across the wire
 	return nil
 }
 
@@ -39,6 +41,7 @@ func newPostListResponse(posts []*models.Post) []render.Renderer {
 	return list
 }
 
+// Pre-processing request before it is sent to next function
 func (pr *PostRequest) Bind(r *http.Request) error {
 	if pr.Post == nil {
 		return errors.New("Missing required Post fields.")

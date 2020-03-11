@@ -25,6 +25,8 @@ type Env struct {
 	db models.Datastore
 }
 
+// Initialize all routes of our program
+// Start server on port and use initialized database connection on our environment
 func Init(db models.Datastore, port string) {
 	r := chi.NewRouter()
 	env := &Env{db}
